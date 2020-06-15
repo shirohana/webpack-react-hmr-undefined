@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+'use strict'
+
+const https = require('https')
+const fs = require('fs')
+
+const PATCH_TARGET = 'webpack/lib/hmr/JavascriptHotModuleReplacement.runtime.js'
+const PATCH_SOURCE = 'https://raw.githubusercontent.com/shirohana/webpack/fix/hmr-module-cache-undefined/lib/hmr/JavascriptHotModuleReplacement.runtime.js'
+
+function patch () {
+  return new Promise((resolve, reject) => {
+    try {
+      const filename = require.resolve(PATCH_TARGET)
+
+      console.log(`Patching Webpack...\n\n  > Download '${PATCH_SOURCE}' -> '${filename}'\n`)
+
+      https.get(PATCH_SOURCE, (res) => {
+        if (res.statusCode !== 200)
+          return reject(new Error(`Request failed (${res.statusCode}) at '${PATCH_SOURCE}'`))
+        res.on('end', () => resolve())
+        res.pipe(fs.createWriteStream(filename))
+      })
+    } catch (err) {
+      if (err.code === 'MODULE_NOT_FOUND') {
+        console.error(`Error: Missing dependency: 'webpack'`)
+        process.exit(1)
+      }
+      reject(rrr)
+    }
+  })
+}
+
+patch()
+  .then(() => console.log('Patch done.'))
+  .catch((err) => (console.error(err), process.exit(1)))
