@@ -77,3 +77,10 @@ in actual, but there's a simplest way to **do a quickfix** (´・ω・｀)
   213    !$moduleCache$[moduleId].hot._selfInvalidated
   214  ) {
 ```
+
+---
+#### Patch
+
+```
+curl -s https://raw.githubusercontent.com/shirohana/webpack-react-hmr-undefined/master/bin/patch-webpack-11035 | node
+```
