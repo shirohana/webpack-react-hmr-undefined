@@ -2,6 +2,12 @@ webpack-react-hmr-undefined
 ===========================
 > This is the minimal reproducible repo for an issue in [webpack](https://github.com/webpack/webpack)
 
+UPDATE
+------
+
+The main reason was found from `react-hot-loader`, no need React to reproduce
+the error now.
+
 How to Reproduce Error
 ----------------------
 1. Clone repo and cd
@@ -32,23 +38,17 @@ How to Reproduce Error
 
 4. Open browser with url (default: http://127.0.0.1:3000) and open DevTools
 
-5. Edit file `src/components/text-a.js` like:
+5. Edit file `src/app/index.js` like:
+
 
     ```diff
-      // @flow
-      import React from 'react'
+      ...
 
-    - // import TextB from './text-b'
-    + import TextB from './text-b'
+      import hot from './hot'
+    - // import IndexPage from '../pages/index'
+    + import IndexPage from '../pages/index'
 
-      export default () => {
-        return React.createElement(
-          'div',
-          null,
-          React.createElement('h2', null, 'Text A'),
-          // React.createElement(TextB)
-        )
-      }
+      ...
     ```
 
 6. You'll see the Error in Console
@@ -73,8 +73,8 @@ in actual, but there's a simplest way to **do a quickfix** (´・ω・｀)
   210    // removed self-accepted modules should not be required
   211    appliedUpdate[outdatedModuleId] !== warnUnexpectedRequire &&
   212    // when called invalidate self-accepting is not possible
-+        $moduleCache$[moduleId] &&
-  213    !$moduleCache$[moduleId].hot._selfInvalidated
+- 213    !$moduleCache$[moduleId].hot._selfInvalidated
++        !$moduleCache$[outdatedModuleId].hot._selfInvalidated
   214  ) {
 ```
 
