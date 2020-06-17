@@ -1,12 +1,6 @@
 // @flow
-import React from 'react'
-
-import TextA from '../components/text-a'
-
 export default () => {
-  return React.createElement(
-    'div',
-    null,
-    React.createElement(TextA)
-  )
+  const el = document.createElement('div')
+  el.appendChild(document.createTextNode('pages/index'))
+  return el
 }

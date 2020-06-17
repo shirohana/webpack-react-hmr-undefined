@@ -13,7 +13,6 @@ module.exports = {
   entry: {
     app: [
       'webpack-hot-middleware/client',
-      'react-hot-loader/patch',
       resolve('src/main.js')
     ]
   },
@@ -23,12 +22,6 @@ module.exports = {
     filename: '[name].js'
   },
   devtool: 'source-map',
-  resolve: {
-    alias: {
-      // NOTICE: This alias only available in development mode
-      'react-dom': '@hot-loader/react-dom'
-    }
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: resolve('src/app/index.html'),
@@ -44,12 +37,7 @@ module.exports = {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel-loader',
-      options: { cacheDirectory: true }
-    }, {
-      test: /\.js$/,
-      include: /node_modules\/react-dom/,
-      loader: 'react-hot-loader/webpack'
+      loader: 'babel-loader'
     }]
   }
 }
