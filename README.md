@@ -1,3 +1,5 @@
+> Fixed in [v5.0.0-beta.18](https://github.com/webpack/webpack/releases/tag/v5.0.0-beta.18)
+
 webpack-react-hmr-undefined
 ===========================
 > This is the minimal reproducible repo for an issue in [webpack](https://github.com/webpack/webpack)
